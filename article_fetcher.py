@@ -147,6 +147,7 @@ async def fetch_article_as_markdown(url):
         logger.error(f"Error fetching article as markdown: {str(e)}")
         raise
 
+<<<<<<< HEAD
 def fetch_article(url):
     """
     Synchronous wrapper for fetch_article_as_markdown.
@@ -166,6 +167,26 @@ def fetch_article(url):
             loop = asyncio.get_event_loop()
             return loop.run_until_complete(fetch_article_as_markdown(url))
         raise
+=======
+import trafilatura
+
+def fetch_article(url):
+    """
+    Fetch readable article text from a URL using trafilatura.
+    
+    Args:
+        url (str): The URL of the article to fetch
+    
+    Returns:
+        str: Clean extracted article text
+    """
+    downloaded = trafilatura.fetch_url(url)
+    if not downloaded:
+        return ""
+
+    article = trafilatura.extract(downloaded, include_comments=False, include_tables=False)
+    return article or ""
+>>>>>>> 9cde1b5 (初始化项目，添加 sentiment_analysis 等代码)
 
 if __name__ == "__main__":
     # Example usage
